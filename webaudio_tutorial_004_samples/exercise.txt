@@ -1,0 +1,2 @@
+Finish up the drum kit
+Make sliders to change the playback rate of the samples.

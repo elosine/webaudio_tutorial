@@ -1,0 +1,4 @@
+Create several different oscillators each with start and stop buttons.
+Create some basic subtractive synthesis by exploring OscillatorNode 
+https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode 
+Use: OscillatorNode.detune and OscillatorNode.type to create some basic synthesis
