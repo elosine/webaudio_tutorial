@@ -1,0 +1,8 @@
+Exercise: 
+Find some text
+Make 4 or more ‘tape recorders’
+Spatialize the loops
+Other experiments:
+Use Lfos to increase/decrease the speeds at different rates
+Visualize the phase changes
+ 
