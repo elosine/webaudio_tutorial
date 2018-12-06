@@ -45,11 +45,11 @@ playSound('kick.wav', (st + t_h));
 playSound('snare.wav', st + t_q);
 playSound('snare.wav', st + t_hd);
 
+
 for (var i = 0; i < 16; i++){
   playSound( 'hihat.wav', st + (t_16*i) );
 }
 */
-
 
 
 // Play 4 bars of 4_4
