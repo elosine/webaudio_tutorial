@@ -12,9 +12,9 @@ pan1.pan.value = 1;
 pan2.pan.value = -1;
 
 var analyser1 = aCtx.createAnalyser();
-analyser1.fftSize = 1024;
+analyser1.fftSize = 512;
 var analyser2 = aCtx.createAnalyser();
-analyser2.fftSize = 1024;
+analyser2.fftSize = 512;
 var bufferLength = analyser1.frequencyBinCount;
 var dataArray1 = new Uint8Array(bufferLength);
 var dataArray2 = new Uint8Array(bufferLength);

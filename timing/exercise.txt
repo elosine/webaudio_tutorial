@@ -1,0 +1,3 @@
+Make a tempo slider
+Make more elaborate patterns
+Create patterns as functions and launch those patterns in time
