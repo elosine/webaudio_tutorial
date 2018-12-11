@@ -43,7 +43,9 @@ function env2() {
   osc2.frequency.value = 97.999;
   gain.gain.setValueAtTime(0, actx.currentTime);
   gain.gain.linearRampToValueAtTime(1.0, actx.currentTime + 0.015);
-  gain.gain.linearRampToValueAtTime(0.0, actx.currentTime + 0.015 + 1.5);
+  gain.gain.linearRampToValueAtTime(0.2, actx.currentTime + 0.015 + 0.08);
+
+  gain.gain.linearRampToValueAtTime(0.0, actx.currentTime + 0.015  + 0.05 + 1.5);
 }
 
 function env3() {
@@ -64,6 +66,6 @@ function env4a() {
 function env4r() {
   osc.frequency.value = 185;
   osc2.frequency.value = 185;
-  gain.gain.setValueAtTime(0, actx.currentTime);
-  gain.gain.linearRampToValueAtTime(0.0, actx.currentTime + 0.75);
+  gain.gain.setValueAtTime(1, actx.currentTime);
+  gain.gain.linearRampToValueAtTime(0.0, actx.currentTime + 1.75);
 }

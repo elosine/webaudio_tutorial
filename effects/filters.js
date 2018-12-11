@@ -77,14 +77,16 @@ function env3() {
   osc2.frequency.value = 130.81;
   gain.gain.setValueAtTime(0, actx.currentTime);
   gain.gain.linearRampToValueAtTime(1.0, actx.currentTime + 0.1);
-  gain.gain.linearRampToValueAtTime(1.0, actx.currentTime + 0.1 + 2);
-  gain.gain.linearRampToValueAtTime(0.0, actx.currentTime + 1.1 + 2 + 0.5);
+  gain.gain.linearRampToValueAtTime(1.0, actx.currentTime + 0.1 + 4);
+  gain.gain.linearRampToValueAtTime(0.0, actx.currentTime + 1.1 + 4 + 0.5);
 
   biquadFilter.type = "peaking";
-  biquadFilter.frequency.setValueAtTime(523.24, actx.currentTime);
+  biquadFilter.frequency.setValueAtTime(130.81, actx.currentTime);
   //biquadFilter.frequency.setValueAtTime(915.67, actx.currentTime);
-  biquadFilter.Q.setValueAtTime(2, actx.currentTime);
-  biquadFilter.gain.setValueAtTime(30, actx.currentTime);
+  biquadFilter.frequency.exponentialRampToValueAtTime(915.67, actx.currentTime + 4.1);
+
+  biquadFilter.Q.setValueAtTime(3, actx.currentTime);
+  biquadFilter.gain.setValueAtTime(33, actx.currentTime);
 
 }
 

@@ -14,7 +14,7 @@ var playbut = document.getElementById('play');
 playbut.addEventListener('click', play);
 
 function play() {
-getImpulse();
+  getImpulse();
   gain.gain.setValueAtTime(0, actx.currentTime);
   gain.gain.linearRampToValueAtTime(0.5, actx.currentTime + 0.015);
   gain.gain.linearRampToValueAtTime(0.0, actx.currentTime + 0.015 + 0.01);
@@ -24,9 +24,9 @@ getImpulse();
 function getImpulse() {
   convolver = actx.createConvolver();
   ajaxRequest = new XMLHttpRequest();
-  //ajaxRequest.open('GET', '002_R1_Nuclear_Reactor_Hall_s_L.wav', true);
+  ajaxRequest.open('GET', '002_R1_Nuclear_Reactor_Hall_s_L.wav', true);
   //ajaxRequest.open('GET', '006_SquareVictoriaDome_s_L.wav', true);
-  ajaxRequest.open('GET', '005_abernyte_grain_silo_s_L.wav', true);
+  //ajaxRequest.open('GET', '005_abernyte_grain_silo_s_L.wav', true);
   ajaxRequest.responseType = 'arraybuffer';
 
   ajaxRequest.onload = function() {

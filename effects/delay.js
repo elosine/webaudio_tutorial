@@ -36,8 +36,8 @@ function del() {
   gain.gain.linearRampToValueAtTime(0.5, actx.currentTime + 0.015);
   gain.gain.linearRampToValueAtTime(0.0, actx.currentTime + 0.015 + 0.3);
 
-  del1.delayTime.setValueAtTime(0.4, actx.currentTime);
-  del2.delayTime.setValueAtTime(0.8, actx.currentTime);
-  del3.delayTime.setValueAtTime(1.1, actx.currentTime);
-  del4.delayTime.setValueAtTime(1.3, actx.currentTime);
+  del1.delayTime.setValueAtTime(0.05, actx.currentTime);
+  del2.delayTime.setValueAtTime(0.08, actx.currentTime);
+  del3.delayTime.setValueAtTime(0.1, actx.currentTime);
+  del4.delayTime.setValueAtTime(0.15, actx.currentTime);
 }
