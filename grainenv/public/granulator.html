@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Sine Wave</title>
+</head>
+
+<body>
+  <form action="/action_page.php">
+    Number of Grains: <input type="text" name="numgrains" id='numgrains'><br>
+    Grain Duration Min: <input type="text" name="grdurmin" id='grdurmin'><br>
+    Grain Duration Max: <input type="text" name="grdurmax" id='grdurmax'><br>
+    Gap Duration Min: <input type="text" name="gapdurmin" id='gapdurmin'><br>
+    Gap Duration Max: <input type="text" name="gapdurmax" id='gapdurmax'><br>
+    Grain Envelopes : <input type="text" name="grenvs" id='grenvs'><br>
+    <!-- figure out where in sample like forward, backward and random
+ figure out what samples -->
+    <input type="submit" value="Submit">
+  </form>
+  <button id="initAudioBtn">Initialize Audio</button>
+  <button id="loadSampBtn">Load Sample</button>
+  <button id="playSampBtn">Play Sample</button>
+  <button id="playGrainBtn">Play Grain</button>
+  <button id="testbtn">Test</button>
+  <script src="granulator.js"></script>
+</body>
+
+</html>
