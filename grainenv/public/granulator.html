@@ -14,16 +14,26 @@
     Gap Duration Min: <input type="text" name="gapdurmin" id='gapdurmin'><br>
     Gap Duration Max: <input type="text" name="gapdurmax" id='gapdurmax'><br>
     Grain Envelopes : <input type="text" name="grenvs" id='grenvs'><br>
-    <!-- figure out where in sample like forward, backward and random
- figure out what samples -->
-    <input type="submit" value="Submit">
   </form>
+  <p>
+    [0] Blackman <br />
+    [1] Expodec <br />
+    [2] Gauss <br />
+    [3] Hamming <br />
+    [4] Hanning <br />
+    [5] Pulse <br />
+    [6] QuasiGauss <br />
+    [7] Rexpodec <br />
+    [8] ThreeStageLinear <br />
+    [9] Tri
+  </p>
   <button id="initAudioBtn">Initialize Audio</button>
-  <button id="loadSampBtn">Load Sample</button>
-  <button id="playSampBtn">Play Sample</button>
-  <button id="playGrainBtn">Play Grain</button>
-  <button id="testbtn">Test</button>
-  <script src="granulator.js"></script>
+  <button id="loadSampsBtn">Load Samples & Grain Envelopes</button>
+  <br />
+  <button id="playGrainCloudBtn">Play Grain Cloud</button>
 </body>
+
+<script src="usefulFunctions.js"></script>
+<script src="granulator.js"></script>
 
 </html>
