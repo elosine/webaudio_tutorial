@@ -1,2 +1,2 @@
-a = SoundFile.collectIntoBuffers("/Users/jyang/Documents/github/prolonged_into_the_latent/archive/2019_09_18-prolonged_into_the_latent/grainEnv/*");
+a = SoundFile.collectIntoBuffers("/Users/jyang/Documents/github/webaudio_tutorial/grainenv/public/grainEnv_44100/*");
 a.do({|it| it.plot});

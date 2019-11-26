@@ -8,29 +8,31 @@
 
 <body>
   <form action="/action_page.php">
-    Number of Grains: <input type="text" name="numgrains" id='numgrains'><br>
-    Grain Duration Min: <input type="text" name="grdurmin" id='grdurmin'><br>
-    Grain Duration Max: <input type="text" name="grdurmax" id='grdurmax'><br>
-    Gap Duration Min: <input type="text" name="gapdurmin" id='gapdurmin'><br>
-    Gap Duration Max: <input type="text" name="gapdurmax" id='gapdurmax'><br>
+    Number of Grains: <input type="text" name="numgrains" id='numgrains' value='50'><br>
+    Grain Duration Min: <input type="text" name="grdurmin" id='grdurmin' value='0.08'><br>
+    Grain Duration Max: <input type="text" name="grdurmax" id='grdurmax' value='0.08'><br>
+    Gap Duration Min: <input type="text" name="gapdurmin" id='gapdurmin' value='0.4'><br>
+    Gap Duration Max: <input type="text" name="gapdurmax" id='gapdurmax' value='0.4'><br>
     Grain Envelopes : <input type="text" name="grenvs" id='grenvs'><br>
   </form>
   <p>
     [0] Blackman <br />
-    [1] Expodec <br />
-    [2] Gauss <br />
-    [3] Hamming <br />
-    [4] Hanning <br />
-    [5] Pulse <br />
-    [6] QuasiGauss <br />
-    [7] Rexpodec <br />
-    [8] ThreeStageLinear <br />
-    [9] Tri
+    [1] Blackman-Harris <br />
+    [2] Expodec <br />
+    [3] Gauss <br />
+    [4] Hamming <br />
+    [5] Hanning <br />
+    [6] Pulse <br />
+    [7] QuasiGauss <br />
+    [8] Rexpodec <br />
+    [9] ThreeStageLinear <br />
+    [10] Tri
   </p>
   <button id="initAudioBtn">Initialize Audio</button>
   <button id="loadSampsBtn">Load Samples & Grain Envelopes</button>
   <br />
   <button id="playGrainCloudBtn">Play Grain Cloud</button>
+  <button id="test">test</button>
 </body>
 
 <script src="usefulFunctions.js"></script>

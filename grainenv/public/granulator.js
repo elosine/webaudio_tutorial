@@ -4,7 +4,7 @@ var actx, mastergain;
 function initAudio() {
   actx = new(window.AudioContext || window.webkitAudioContext)();
   mastergain = actx.createGain();
-  mastergain.gain = 12;
+  mastergain.gain = 1;
   mastergain.connect(actx.destination);
 }
 var initAudioBtn = document.getElementById('initAudioBtn');
@@ -18,25 +18,39 @@ var grEnvsPathBufArr = [];
 var sampPaths = [
   'FullmanFluctuations3_edit.wav'
 ];
-var grPath = '/grainEnv_44100/';
+var grPath = '/grainEnv_csv/';
 var grEnvPaths = [
-  grPath + '00_gEnv_blackman.wav',
-  grPath + '01_gEnv_blackmanHarris.wav',
-  grPath + '02_gEnv_expodec.wav',
-  grPath + '03_gEnv_gauss.wav',
-  grPath + '04_gEnv_hamming.wav',
-  grPath + '05_gEnv_hanning.wav',
-  grPath + '06_gEnv_pulse.wav',
-  grPath + '07_gEnv_quasiGauss.wav',
-  grPath + '08_gEnv_rexpodec.wav',
-  grPath + '09_gEnv_threeStageLinear.wav',
-  grPath + '10_gEnv_tri.wav'
+  grPath + '00_gEnv_blackman.txt',
+  grPath + '01_gEnv_blackmanHarris.txt',
+  grPath + '02_gEnv_expodec.txt',
+  grPath + '03_gEnv_gauss.txt',
+  grPath + '04_gEnv_hamming.txt',
+  grPath + '05_gEnv_hanning.txt',
+  grPath + '06_gEnv_pulse.txt',
+  grPath + '07_gEnv_quasiGauss.txt',
+  grPath + '08_gEnv_rexpodec.txt',
+  grPath + '09_gEnv_threeStageLinear.txt',
+  grPath + '10_gEnv_tri.txt'
+];
+var grEnvArrays = [
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  []
 ];
 var loadSampsBtn = document.getElementById('loadSampsBtn');
 loadSampsBtn.addEventListener("click", function() {
   loadTOsampsPathBufArr(sampPaths);
-  loadTOgrEnvsPathBufArr(grEnvPaths);
+  loadTOgrEnvsPathBufArr(grEnvPaths, grEnvArrays);
 }, false);
+
 async function getFile(filepath) {
   const response = await fetch(filepath);
   const arrayBuffer = await response.arrayBuffer();
@@ -60,12 +74,9 @@ function loadTOsampsPathBufArr(sfPathsArray) {
   }
 }
 
-function loadTOgrEnvsPathBufArr(sfPathsArray) {
+function loadTOgrEnvsPathBufArr(sfPathsArray, destArrayArray) {
   for (var i = 0; i < sfPathsArray.length; i++) {
-    setupSample(sfPathsArray[i])
-      .then((pathSampArr) => {
-        grEnvsPathBufArr.push(pathSampArr);
-      });
+    getGrEnvAsArray(sfPathsArray[i], destArrayArray[i])
   }
 }
 // Create Grain Cloud from form inputs ---------------------------- //
@@ -83,39 +94,27 @@ function playGrainCloud() {
   var gapdurminbox = document.getElementById("gapdurmin");
   var gapdurmaxbox = document.getElementById("gapdurmax");
   var grainenvs = document.getElementById("grenvs");
-  var envSetStr = grainenvs.value.split(',');
-  var envSet = [];
-  for (var i = 0; i < envSetStr.length; i++) {
-    var trmvspace = envSetStr[i].replace(/\s/g, '');
-    var tasint = parseInt(trmvspace);
-    envSet.push(tasint);
-  }
-  var env = choose(envSet);
+  // var envSetStr = grainenvs.value.split(',');
+  // var envSet = [];
+  // for (var i = 0; i < envSetStr.length; i++) {
+  //   var trmvspace = envSetStr[i].replace(/\s/g, '');
+  //   var tasint = parseInt(trmvspace);
+  //   envSet.push(tasint);
+  // }
+  // var env = choose(envSet);
   var tnumgrains = parseFloat(numgrainsbox.value);
   var tgrdurmin = parseFloat(grdurmin.value);
   var tgrdurmax = parseFloat(grdurmax.value);
   var tgapdurmin = parseFloat(gapdurmin.value);
   var tgapdurmax = parseFloat(gapdurmax.value);
-  console.log(tnumgrains + " " + tgrdurmin + " " + tgrdurmax + " " + tgapdurmin + " " + tgapdurmax);
+  var grainenvsNum = parseInt(grainenvs.value);
   grainCloud(tnumgrains, tgrdurmin, tgrdurmax, tgapdurmin, tgapdurmax,
-    sampsPathBufArr[0][1], grEnvsPathBufArr[env][1], 1, 1, 60)
+    sampsPathBufArr[0][1], 1, 1, 60, grainenvsNum)
 }
-// grainCloud(numgrains, grdurmin, grdurmax, grgapmin, grgapmax,
-// sampAudioBuf, grEnvAudioBuf, sampPlaybackRate, sampPlaybackSpd, iSampIndexTime)
-/*
-[0] Blackman
-[1] Expodec
-[2] Gauss
-[3] Hamming
-[4] Hanning
-[5] Pulse
-[6] QuasiGauss
-[7] Rexpodec
-[8] ThreeStageLinear
-[9] Tri
-*/
+
 function grainCloud(numgrains, grdurmin, grdurmax, grgapmin, grgapmax,
-  sampAudioBuf, grEnvAudioBuf, sampPlaybackRate, sampPlaybackSpd, iSampIndexTime) {
+  sampAudioBuf, sampPlaybackRate, sampPlaybackSpd, iSampIndexTime, grEnvNum) {
+  var now = actx.currentTime;
   var tgotime = 0;
   var sampIdxTime = iSampIndexTime;
   for (var i = 0; i < numgrains; i++) {
@@ -123,29 +122,39 @@ function grainCloud(numgrains, grdurmin, grdurmax, grgapmin, grgapmax,
     var tgrgap = rrand(grgapmin, grgapmax);
     //buf, gain, envbuf for each grain
     var tgrgain = actx.createGain();
-    tgrgain.gain.value = 0;
+    tgrgain.gain.setValueAtTime(0, now);
     tgrgain.connect(mastergain);
     var tsampsource = actx.createBufferSource();
     tsampsource.buffer = sampAudioBuf;
     tsampsource.playbackRate.value = sampPlaybackSpd;
     tsampsource.loop = 0;
     tsampsource.connect(tgrgain);
-    // var tgrEnvRate = (512 / actx.sampleRate) * tgrdur;
-    var tgrEnvRate = (44100 / actx.sampleRate) * tgrdur;
-    var tgrEnvSource = actx.createBufferSource();
-    tgrEnvSource.buffer = grEnvAudioBuf;
-    tgrEnvSource.playbackRate.value = tgrEnvRate;
-    tgrEnvSource.loop = 0;
-    tgrEnvSource.connect(tgrgain.gain);
-    tsampsource.start(actx.currentTime + tgotime - 0.1, sampIdxTime, tgrdur + 0.2);
-    tgrEnvSource.start(actx.currentTime + tgotime, 0, tgrdur);
+    tsampsource.start(now + tgotime - 0.1, sampIdxTime, tgrdur + 0.2);
+    tgrgain.gain.setValueCurveAtTime(grEnvArrays[grEnvNum], (now + tgotime), tgrdur);
     tgotime = tgotime + tgrgap;
     sampIdxTime = sampIdxTime + (tgrdur * sampPlaybackRate);
   }
 }
 
+var test = document.getElementById('test');
+test.addEventListener("click", function() {
+  console.log(grEnvArrays);
+}, false);
 
+function getGrEnvAsArray(path, destArray) {
+  fetch(path)
+    .then(response => response.text())
+    .then(text => {
+      var t1 = text.split(",");
+      for (var i = 0; i < t1.length; i++) {
+        destArray.push(parseFloat(t1[i]));
+      }
+    });
+}
 
+//double check that the csv arrays you made with supercollider are unique and represent the actual
+//grain Envelopes
+// convert with supercollider and convert back from the text files then plot
 
 
 
